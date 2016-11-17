@@ -24,4 +24,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/user', function () {
         return view('user.index');
     });
+
+
+
+
+    
 });
