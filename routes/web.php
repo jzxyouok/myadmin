@@ -21,12 +21,12 @@ Route::group(['middleware' => 'auth'], function () {
         return view('main');
     });
 
-    Route::get('/user', function () {
-        return view('user.index');
-    });
+//    Route::get('/user', function () {
+//        return view('user.index');
+//    });
+
+    Route::get('user', 'Admin\UserController@index');
 
 
 
-
-    
 });

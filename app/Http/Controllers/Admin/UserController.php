@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class UserController extends Controller
 {
@@ -14,10 +13,12 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+
     }
 
-
+    public function index(){
+        return view('user.index')->with(['id'=>1, 'name'=>'test']);
+    }
 
 
 
