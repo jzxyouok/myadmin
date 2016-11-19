@@ -89,6 +89,11 @@ cd /home/wwwroot/myadmin
 
 php artisan migrate --seed
 
+为users表初始化用户数据：
+
+php artisan db:seed
+
+php artisan db:seed --class=UserTableSeeder
 
 7、更新key
 
