@@ -1,27 +1,78 @@
-# Laravel PHP Framework
+# 基于laravel-5.3.23+AdminLTE的后台管理系统
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+想完成的功能：
+1、系统管理：包括用户管理和角色权限管理
+2、待续...
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## 安装说明
+1、下载代码
+在你的PC或者服务器上，新建一个目录（比如/home/wwwroot/myadmin），然后执行下面命令：
+git clone https://github.com/uncle13th/myadmin  或者
+git clone git@github.com:uncle13th/myadmin.git
+把相关代码下载下来
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+2、下载laravel依赖
+执行命令：composer install
+composer会自动下载laravel的相关依赖
 
-## Official Documentation
+3、配置nginx或apache（下面给出nginx的主机配置）
+server
+{
+    listen 80;
+    server_name myadmin.com;
+    index index.html index.htm index.php default.html default.htm default.php;
+    root  /home/wwwroot/myadmin/public;
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+    access_log  /home/wwwlogs/myadmin_access.log  access;
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+    include none.conf;
 
-## Security Vulnerabilities
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+    location ~ [^/]\.php(/|$)
+    {
+        try_files $uri =404;
+        #fastcgi_pass  unix:/tmp/php-cgi.sock;
+        fastcgi_pass  127.0.0.1:9000;
+        fastcgi_index index.php;
+        include fastcgi.conf;
+    }
 
-## License
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+    {
+        root  /home/wwwroot/myadmin/resources/assets;
+        expires      30d;
+    }
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+    location ~ .*\.(js|css)?$
+    {
+        root  /home/wwwroot/myadmin/resources/assets;
+        expires      12h;
+    }
+}
+
+4、在服务器上设置目录权限(windows机的忽略这一步)
+chown nobody:nobody -R /home/wwwroot/myadmin
+chmod 777 /home/wwwroot/myadmin/bootstrap -R
+chmod 777 /home/wwwroot/myadmin/storage -R
+ 
+5、修改配置
+首先，复制.env.example文件为.env文件，然后修改里面的数据库配置为你自己的数据库配置
+另外，要在数据库上创建一个数据库，参考的语句：
+CREATE DATABASE myadmin DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+6、初始化数据表
+cd /home/wwwroot/myadmin
+php artisan migrate --seed
+
+7、更新key
+php artisan key:generate
+
+
+
+
+
+
