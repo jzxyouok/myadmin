@@ -25,10 +25,15 @@ composer会自动下载laravel的相关依赖
 3、配置nginx或apache（下面给出nginx的主机配置）
 
 server
+
 {
+
     listen 80;
+
     server_name myadmin.com;
+
     index index.html index.htm index.php default.html default.htm default.php;
+
     root  /home/wwwroot/myadmin/public;
 
     access_log  /home/wwwlogs/myadmin_access.log  access;
