@@ -21,13 +21,16 @@ class UserController extends Controller
 
     }
 
-    public function index(Request $request){
-        $inputs = $request->all();
-        $user = User::paginate(2);
-        if(isset($inputs['name']) && !empty($inputs['name'])){
-            $user = $user->where('name', 'regexp', $inputs['name']);
-        }
-        return view('user.index')->with(["users"=>$user]);
+    public function index(){
+//        $inputs = $request->all();
+        $user = User::paginate(1);
+//        if(isset($inputs['name']) && !empty($inputs['name'])){
+//            $user = $user->where('name', 'regexp', $inputs['name']);
+//        }
+
+//        dump($user->links());
+//        return view('user.index')->with(["users"=>$user]);
+        return view('user.index', ['users' => $user]);
     }
 
 

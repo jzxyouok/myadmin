@@ -209,7 +209,7 @@ desired effect
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="/logout" class="btn btn-default btn-flat">退出</a>
                 </div>
               </li>
             </ul>
@@ -265,8 +265,8 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/user">用户管理</a></li>
-            <li><a href="#">角色管理</a></li>
+            <li class="active"><a href="/user"><i class="fa fa-circle-o"></i>用户管理</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>角色管理</a></li>
           </ul>
         </li>
       </ul>
@@ -401,5 +401,8 @@ desired effect
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
      fixed layout. -->
+
+@yield('js')
+
 </body>
 </html>

@@ -17,6 +17,8 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('/logout', 'Auth\LoginController@logout');
+
     Route::get('/', function () {
         return view('main');
     });
